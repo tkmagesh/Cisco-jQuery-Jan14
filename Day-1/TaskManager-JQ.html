@@ -42,16 +42,17 @@
 		displayMessage("Zero or more completed tasks are removed");
 	}
 	function onTaskItemClick(){
-		var taskItem = this;
-		if (taskItem.classList.contains("completed")){
-			taskItem.classList.remove('completed');
+		/*
+		var $taskItem = $(this);
+		if ($taskItem.hasClass("completed")){
+			$taskItem.removeClass('completed');
 		} else {
-			taskItem.classList.add("completed");
-		}
+			$taskItem.addClass("completed");
+		}*/
+		$(this).toggleClass('completed');
 	}
 	function displayMessage(msg){
-		var jQDivMessage = $("#divMessage");
-		jQDivMessage.html(msg);
+		$("#divMessage").html(msg);
 	}
 	window.addEventListener("DOMContentLoaded",init);
 
