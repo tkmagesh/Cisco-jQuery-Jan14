@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<link rel="stylesheet" href="style.css">
+	<script>
+	function init(){
+		document.getElementById('btnAddTask').addEventListener("click",onBtnAddClick);
+		document.getElementById('btnRemoveCompleted').addEventListener("click",onBtnRemoveCompletedClick);
+		attachTaskItemClickHandlers();
+	}
+	function attachTaskItemClickHandlers(){
+		ulTaskList = document.getElementById("ulTaskList");
+		for(var i=0;i<ulTaskList.children.length;i++){
+			var taskItem = ulTaskList.children[i];
+			taskItem.addEventListener("click",onTaskItemClick);
+		}
+	}
+	function onBtnAddClick(){
+		var txtTask = document.getElementById("txtTask"),
+			taskName = txtTask.value,
+			ulTaskList = document.getElementById("ulTaskList");
+		var newTaskItem = "<li>" + taskName + "</li>";
+		ulTaskList.innerHTML += newTaskItem;
+		displayMessage("A new task item is added");
+
+	}
+	function onBtnRemoveCompletedClick(){
+		ulTaskList = document.getElementById("ulTaskList");
+		for(var i=ulTaskList.children.length-1;i>=0;i--){
+			var taskItem = ulTaskList.children[i];
+			if (taskItem.classList.contains("completed")){
+				taskItem.remove();
+			}
+		}
+		displayMessage("Zero or more completed tasks are removed");
+	}
+	function onTaskItemClick(){
+		var taskItem = this;
+		if (taskItem.classList.contains("completed")){
+			taskItem.classList.remove('completed');
+		} else {
+			taskItem.classList.add("completed");
+		}
+	}
+	function displayMessage(msg){
+		document.getElementById("divMessage").innerHTML = msg;
+	}
+	window.addEventListener("DOMContentLoaded",init);
+
+	</script>
+</head>
+<body>
+	<h1>Task Manager</h1>
+	<span>Task :</span>
+	<input type="text" name="" id="txtTask">
+	<input type="button" value="Add Task" id="btnAddTask">
+	<input type="button" value="Remove Completed" id="btnRemoveCompleted">
+	<ul id="ulTaskList">
+		<li>Task-1</li>
+		<li>Task-2</li>
+		<li>Task-3</li>
+	</ul>
+	<div id="divMessage">[Messages to be displayed]</div>
+</body>
+</html>
