@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+	div{
+		border : 2px solid black;
+		padding : 50px;
+	}
+	#div-1{
+		background-color: lightblue;
+	}
+	#div-2{
+		background-color: lightpink;
+	}
+	#div-3{
+		background-color: lightgreen;
+	}
+	#div-4{
+		background-color: gray;
+	}
+	</style>
+	<script>
+	window.addEventListener("DOMContentLoaded",function(){
+		document.getElementById("div-4").addEventListener("click",divClick);
+		document.getElementById("div-3").addEventListener("click",divClick);
+		document.getElementById("div-2").addEventListener("click",divClick);
+		document.getElementById("div-1").addEventListener("click",divClick);
+		document.body.addEventListener("click",divClick);
+	});
+	function divClick(){
+		console.log(this, "is clicked");
+	}
+	</script>
+</head>
+<body>
+	<div id="div-1">
+		<div id="div-2">
+			<div id="div-3">
+				<div id="div-4">
+					Inner most div
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

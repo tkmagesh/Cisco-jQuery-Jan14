@@ -6,58 +6,28 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="jquery-1.10.2.js"></script>
 	<script>
-	function init(){
-		document.getElementById('btnAddTask').addEventListener("click",onBtnAddClick);
-		document.getElementById('btnRemoveCompleted').addEventListener("click",onBtnRemoveCompletedClick);
-		attachTaskItemClickHandlers();
-	}
-	function attachTaskItemClickHandlers(){
-		/*ulTaskList = document.getElementById("ulTaskList");
-		for(var i=0;i<ulTaskList.children.length;i++){
-			var taskItem = ulTaskList.children[i];
-			taskItem.addEventListener("click",onTaskItemClick);
-		}*/
-		var $taskItems = $("#ulTaskList li");
-		$taskItems.click(onTaskItemClick);
-	}
+	$(function(){
+		$('#btnAddTask').on("click",onBtnAddClick);
+		$('#btnRemoveCompleted').click(onBtnRemoveCompletedClick);
+		$("#ulTaskList").on("click","li", onTaskItemClick);
+	});
 	function onBtnAddClick(){
-		var txtTask = document.getElementById("txtTask"),
-			taskName = txtTask.value,
-			ulTaskList = document.getElementById("ulTaskList");
-		var newTaskItem = document.createElement("li");
-
-		newTaskItem.innerHTML = taskName;
-		newTaskItem.addEventListener("click",onTaskItemClick);
-		ulTaskList.appendChild(newTaskItem);
+		$("<li>")
+			.html($("#txtTask").val())
+			.appendTo("#ulTaskList");
 		
 		displayMessage("A new task item is added");
-
 	}
 	function onBtnRemoveCompletedClick(){
-		ulTaskList = document.getElementById("ulTaskList");
-		for(var i=ulTaskList.children.length-1;i>=0;i--){
-			var taskItem = ulTaskList.children[i];
-			if (taskItem.classList.contains("completed")){
-				taskItem.remove();
-			}
-		}
+		$("#ulTaskList li.completed").remove();
 		displayMessage("Zero or more completed tasks are removed");
 	}
 	function onTaskItemClick(){
-		/*
-		var $taskItem = $(this);
-		if ($taskItem.hasClass("completed")){
-			$taskItem.removeClass('completed');
-		} else {
-			$taskItem.addClass("completed");
-		}*/
 		$(this).toggleClass('completed');
 	}
 	function displayMessage(msg){
 		$("#divMessage").html(msg);
 	}
-	window.addEventListener("DOMContentLoaded",init);
-
 	</script>
 </head>
 <body>
