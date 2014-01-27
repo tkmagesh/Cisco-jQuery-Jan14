@@ -12,11 +12,13 @@
 		attachTaskItemClickHandlers();
 	}
 	function attachTaskItemClickHandlers(){
-		ulTaskList = document.getElementById("ulTaskList");
+		/*ulTaskList = document.getElementById("ulTaskList");
 		for(var i=0;i<ulTaskList.children.length;i++){
 			var taskItem = ulTaskList.children[i];
 			taskItem.addEventListener("click",onTaskItemClick);
-		}
+		}*/
+		var $taskItems = $("#ulTaskList li");
+		$taskItems.click(onTaskItemClick);
 	}
 	function onBtnAddClick(){
 		var txtTask = document.getElementById("txtTask"),
