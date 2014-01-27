@@ -21,8 +21,12 @@
 		var txtTask = document.getElementById("txtTask"),
 			taskName = txtTask.value,
 			ulTaskList = document.getElementById("ulTaskList");
-		var newTaskItem = "<li>" + taskName + "</li>";
-		ulTaskList.innerHTML += newTaskItem;
+		var newTaskItem = document.createElement("li");
+		
+		newTaskItem.innerHTML = taskName;
+		newTaskItem.addEventListener("click",onTaskItemClick);
+		ulTaskList.appendChild(newTaskItem);
+		
 		displayMessage("A new task item is added");
 
 	}
