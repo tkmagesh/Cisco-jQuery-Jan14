@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Animation Demo</title>
+	<script>
+	window.addEventListener("DOMContentLoaded",init);
+	function init(){
+		document.getElementById("btnFadeOut").addEventListener("click",onBtnFadeOutClick);
+	}
+	function onBtnFadeOutClick(){
+		reduceOpacity(function(){
+			console.log("element faded out");
+		});
+		
+	}
+
+	function reduceOpacity(onCompleteCallback){
+	  var elem = document.getElementById("heading-1");
+	  var opacity = 1;
+
+	  var timerHandle = setInterval(function(){
+	        opacity = opacity - 0.05;
+	        if (opacity < 0){
+	            opacity = 0;
+	            clearInterval(timerHandle);
+	            if (typeof onCompleteCallback === "function")
+	            	onCompleteCallback();
+	        }
+	        elem.style.opacity = opacity;
+	  },250);
+	}
+
+	</script>
+</head>
+<body>
+	<h1 id="heading-1">Content be faded out</h1>
+	<input type="button" value="Fade Out" id="btnFadeOut">
+</body>
+</html>
