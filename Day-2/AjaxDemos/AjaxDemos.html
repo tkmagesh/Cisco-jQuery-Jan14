@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax Demo</title>
+	<script src="jquery-1.10.2.js"></script>
+	<script src="handlebars-v1.3.0.js"></script>
+	<script>
+	$(function(){
+		$("#btnLoadHTML").click(onBtnLoadClick);
+		$("#btnLoadJSON").click(onBtnLoadJsonClick);
+		$("#btnLoadScript").click(onBtnLoadScriptClick);
+		$("#btnPostData").click(onBtnPostDataClick);
+	});
+	function onBtnLoadClick(){
+		/*$.get("remoteContent.html",null,function(response){
+			$("#divContent").append(response);
+		},"html");
+	*/
+	$("#divContent").load("remoteContent.html");
+	}
+	/*function onBtnLoadJsonClick(){
+		var temp = "<tr><td>{id}</td><td>{name}</td><td>{cost}</td><td>{units}</td></tr>",
+			result = "<table style='border : 1px solid black'>";
+		$.get("products.json",null,function(response){
+			for(var i=0;i<response.products.length;i++){
+				var obj = response.products[i];
+				result += temp.replace("{id}",obj.id)
+					.replace("{name}",obj.name)
+					.replace("{cost}",obj.cost)
+					.replace("{units}",obj.units);
+			}
+			result += "</table>";
+			$("#divJSONContent").append(result);
+		});
+	}*/
+	function onBtnLoadJsonClick(){
+		var template = $("#productsTemplate").html();
+		var templateFn = Handlebars.compile(template);
+
+		/* Using $.get for JSON data */
+		/*
+		$.get("products.json",null,function(response){
+			var result = templateFn(response);
+			$("#divJSONContent").append(result);
+		},"json");
+		*/
+		/* Using $.getJSON for JSON Data*/
+		$.getJSON("products.json",null,function(response){
+			var result = templateFn(response);
+			$("#divJSONContent").append(result);
+		});
+	}
+	function onBtnLoadScriptClick(){
+		$.getScript("calculator.js",function(){
+			$("#divScriptResult").html(calculator.add(10,20));
+		})
+	}
+	function onBtnPostDataClick(){
+		var reqData = {id : 1, name : 'pen', cost : 20, units : 100};
+		$.post("http://localhost:9090/",JSON.stringify(reqData),function(res){
+			$("#divPostResult").html("<h3>Product Value = " + res.productValue + "</h3>");
+		},"json");
+	}
+	</script>
+	<script id="productsTemplate" type="text/template">
+		<table style="border : 1px solid black">
+		{{#each products}}
+		<tr>
+			<td>{{id}}</td>
+			<td>{{name}}</td>
+			<td>{{cost}}</td>
+			<td>{{units}}</td>
+		</tr>
+		{{/each}}
+		</table>
+	</script>
+</head>
+<body>
+	
+	<section>
+		<h1>Load Remote HTML demo</h1>
+		<input type="button" value="Load HTML" id="btnLoadHTML">
+		<div id="divContent"></div>
+	</section>
+	<section>
+		<h1>Load Remote JSON demo</h1>
+		<input type="button" value="Load JSON" id="btnLoadJSON">
+		<div id="divJSONContent"></div>
+	</section>
+	<section>
+		<h1>Load Remote Script demo</h1>
+		<input type="button" value="Load Script" id="btnLoadScript">
+		<div id="divScriptResult">
+			
+		</div>
+	</section>
+	<section>
+		<h1>Post Data To Server</h1>
+		<input type="button" value="Post Data" id="btnPostData">
+		<div id="divPostResult">
+			
+		</div>
+	</section>
+</body>
+</html>

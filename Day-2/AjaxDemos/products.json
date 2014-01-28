@@ -1,0 +1,9 @@
+{
+	"products" : [
+		{"id":1,"name":"pen","cost":16,"units":20},
+		{"id":6,"name":"hen","cost":31,"units":22},
+		{"id":3,"name":"den","cost":61,"units":52},
+		{"id":4,"name":"ten","cost":18,"units":22},
+		{"id":7,"name":"len","cost":19,"units":21}
+	]
+}
