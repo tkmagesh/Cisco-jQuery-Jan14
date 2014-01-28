@@ -4,12 +4,34 @@
 	<meta charset="UTF-8">
 	<title>Task Manager</title>
 	<link rel="stylesheet" href="style.css">
+	<style>
+		.onHint{
+			color : gray;
+			font-style: italic;
+		}
+	</style>
+
 	<script src="jquery-1.10.2.js"></script>
 	<script>
 	$(function(){
+		var hintText = "Enter the task";
+
 		$('#btnAddTask').on("click",onBtnAddClick);
 		$('#btnRemoveCompleted').click(onBtnRemoveCompletedClick);
 		$("#ulTaskList").on("click","li", onTaskItemClick);
+		
+		$("#txtTask").focus(function(){
+			var $this = $(this);
+			if ($this.val() === hintText){
+				$this.val('').removeClass("onHint");
+			}
+		}).blur(function(){
+			var $this = $(this);
+			if ($this.val() === ''){
+				$this.val(hintText).addClass("onHint");
+			}
+		}).addClass('onHint')
+		.val(hintText);
 	});
 	function onBtnAddClick(){
 		$("<li>")
