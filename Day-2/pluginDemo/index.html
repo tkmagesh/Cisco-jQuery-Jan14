@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Plugins Demo</title>
+	<style>
+	.hint {
+		color : gray;
+		font-style: italic;
+	}
+	</style>
+	<script src="jquery-1.10.2.js"></script>
+	<script src="jquery.hint.js"></script>
+	
+	<script>
+	$(function(){
+		$(":text").hint();
+	})
+	</script>
+</head>
+<body>
+	<h1>Authoring Custom Plugins</h1>
+	<input type="text" name="" id="" data-hint="Enter your Id"><br>
+	<input type="text" name="" id="" data-hint="Enter your FirstName"><br>
+	<input type="text" name="" id="" data-hint="Enter your Initials"><br>
+</body>
+</html>
