@@ -64,7 +64,12 @@
 		$(this).toggleClass('completed');
 	}
 	function displayMessage(msg){
-		$("#divMessage").html(msg).slideDown().delay(3000).slideUp('slow');
+		$("#divMessage")
+			.html(msg)
+			.slideDown()
+			.delay(3000)
+			.slideUp('slow');
+			
 	}
 	</script>
 </head>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style>
+	.completed {
+		color :red;
+		text-decoration: line-through;
+		font-style: italic;
+	}
+	li {
+		cursor: pointer;
+	}
+
+	#divContainer{
+		position : absolute;
+		bottom : 0px;
+		right : 0px;
+		
+	}
+
+	.message{
+		padding : 5px;
+		border : 2px solid red;
+		background-color: yellow;
+		border-radius: 3px;
+	}
+	body {
+		overflow : hidden;
+	}
+	.msgClose {
+		display : block;
+	}
+	</style>
+	<script>
+		window.myApp = {};
+	</script>
+	<script src="jquery-1.10.2.js"></script>
+	<script>
+	(function(){
+		function displayMessage(msg){
+			var closeAnchor = "<a class='msgClose' href='#'>close</a>"
+			$("<div class='message'>")
+				.text(msg)
+				.append(closeAnchor)
+				.hide()
+				.appendTo("#divContainer")
+				.slideDown()
+				.delay(5000)
+				.fadeOut(function(){ $(this).remove();})
+				//.find(".msgClose")
+				.click(function(e){
+					e.preventDefault();
+					$(this).stop(true).remove();
+				});
+			
+		}
+		function onBtnAddTaskClick(){
+			$("<li>")
+				.html( $("#txtTask").val())
+				.fadeIn()
+				.appendTo("#ulTaskList");
+			displayMessage("A new task is added");
+		}
+		$(function(){
+			$("#btnAddTask").on("click",onBtnAddTaskClick);
+			$("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
+			$("#ulTaskList").on("click","li",onTaskItemClick);
+			$("#divMessage").css("bottom",-$("#divMessage").outerHeight());
+		});
+
+		function onTaskItemClick(e){
+			$(this).toggleClass("completed");
+		}
+
+		function onBtnRemoveCompletedClick(){
+			$("#ulTaskList > li.completed").fadeOut(function(){ $(this).remove();})
+			displayMessage("Zero or more completed tasks are removed");
+		}
+
+
+
+		
+	})();
+	</script>
+</head>
+<body>
+	<h1>Task Manager</h1>
+	<span>Task :</span>
+	<input type="text" name="" id="txtTask">
+	<input type="button" value="Add Task" id="btnAddTask">
+	<input type="button" value="Remove Completed" id="btnRemoveCompleted">
+	<ul id="ulTaskList">
+		
+	</ul>
+	<div id="divContainer">
+		
+	</div>
+	
+</body>
+</html>
